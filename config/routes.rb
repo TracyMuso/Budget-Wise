@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :group_categories
+  root 'splash#index'
   resources :categories
   resources :groups
   devise_for :users
