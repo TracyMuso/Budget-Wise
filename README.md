@@ -149,7 +149,7 @@ To run the project, execute the following command:
 
 - [ ] **Controllers specs**
 - [ ] **Processing data in models**
-- [ ] **Add api endpoint for generating recipes**
+- [ ] **Add api endpoint for generating groups and categories**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -173,7 +173,8 @@ If you like👍🏽 this project, give the repository a star ⭐
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-I would like to thank the Microverse community
+- Design credit goes to [Gregoire Vella on Behance](https://www.behance.net/gregoirevella)
+- I would also like to thank the Microverse community
 
 <!-- LICENSE -->
 

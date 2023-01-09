@@ -9,7 +9,7 @@ node_modules/
 
 # ignore .env files
 .env
-confic/local_env.yml
+config/local_env.yml
 
 # Ignore bundler config.
 /.bundle
@@ -36,3 +36,6 @@ confic/local_env.yml
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
