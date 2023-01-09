@@ -24,8 +24,8 @@ default: &default
 development:
   <<: *default
   database: budget_wise_development
-  username: postgres
-  password: 'psql888tm'
+  username: <%= ENV["DB_USER"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
   host: localhost
   port: 5432
 
@@ -62,8 +62,8 @@ development:
 test:
   <<: *default
   database: budget_wise_test
-  username: postgres
-  password: 'psql888tm'
+  username: <%= ENV["DB_USER"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
   host: localhost
   port: 5432
 
@@ -90,7 +90,7 @@ test:
 production:
   <<: *default
   database: budget_wise_production
-  username: postgres
-  password: 'psql888tm'
+  username: <%= ENV["DB_USER"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
   host: localhost
   port: 5432
