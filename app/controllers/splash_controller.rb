@@ -8,7 +8,3 @@ class SplashController < ApplicationController
     end
   end
 end
-
-	
-
-rails generate cancan:ability
