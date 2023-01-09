@@ -4,6 +4,13 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# ignore node_modules
+node_modules/
+
+# ignore .env files
+.env
+confic/local_env.yml
+
 # Ignore bundler config.
 /.bundle
 
