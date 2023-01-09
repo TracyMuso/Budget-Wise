@@ -7,8 +7,9 @@
 # ignore node_modules
 node_modules/
 
-# ignore .env
+# ignore .env files
 .env
+confic/local_env.yml
 
 # Ignore bundler config.
 /.bundle
