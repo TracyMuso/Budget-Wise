@@ -173,7 +173,8 @@ If you like👍🏽 this project, give the repository a star ⭐
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-I would like to thank the Microverse community
+- Design credit goes to [Gregoire Vella on Behance](https://www.behance.net/gregoirevella)
+- I would also like to thank the Microverse community
 
 <!-- LICENSE -->
 
