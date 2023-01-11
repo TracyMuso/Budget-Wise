@@ -20,9 +20,11 @@ class CategoriesController < ApplicationController
   # POST /categories or /categories.json
   def create
     @category = Category.new(category_params)
+    @category.group_id = current_user.group_id
 
     respond_to do |format|
       if @category.save
+        @group_category = @category.group_categories.create(group_category_params)
         format.html { redirect_to category_url(@category), notice: 'Category was successfully created.' }
         format.json { render :show, status: :created, location: @category }
       else
@@ -60,6 +62,11 @@ class CategoriesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_category
     @category = Category.find(params[:id])
+  end
+
+  # set relationship with groups
+  def group_category_params
+    params.require(:category).permit(:group_id)
   end
 
   # Only allow a list of trusted parameters through.

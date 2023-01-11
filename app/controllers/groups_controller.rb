@@ -20,10 +20,11 @@ class GroupsController < ApplicationController
   # POST /groups or /groups.json
   def create
     @group = Group.new(group_params)
+    @group.user_id = current_user.id
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to group_url(@group), notice: 'Group was successfully created.' }
+        format.html { redirect_to groups_path, notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -31,6 +32,7 @@ class GroupsController < ApplicationController
       end
     end
   end
+
 
   # PATCH/PUT /groups/1 or /groups/1.json
   def update
@@ -55,11 +57,28 @@ class GroupsController < ApplicationController
     end
   end
 
+  def total
+    return unless current_user.present?
+    # @categories = current_user.groups.includes(:group_categories)
+    # @price = @categories.map do |category|
+    #   category.group_categories.reduce(0) { |sum, num| sum + num.category.amount }
+    # end
+    @group = Group.find(params[:id]).includes(:group_categories)
+    @price = @group.group_categories.reduce(0) { |sum, num| sum + num.category.amount }
+    # current_user.groups.includes(:group_categories)
+    # @sum_total = 0.00
+    # @group.group_categories.each {|group_category| sum_total += group_category.category.amount}
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_group
     @group = Group.find(params[:id])
+  end
+
+  def group_category_params
+    params.require(:category).permit(:group_id)
   end
 
   # Only allow a list of trusted parameters through.
