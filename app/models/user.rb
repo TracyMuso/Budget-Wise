@@ -8,5 +8,4 @@ class User < ApplicationRecord
   has_many :categories
 
   validates :name, presence: true
-  validates :surname, presence: true
 end
