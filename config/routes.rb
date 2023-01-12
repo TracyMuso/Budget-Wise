@@ -2,11 +2,8 @@
 
 Rails.application.routes.draw do
   root 'splash#index'
-  resources :categories
-  resources :groups
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :groups do
+    resources :categories
+  end
 end

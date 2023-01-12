@@ -1,13 +1,16 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only: %i[show edit update destroy]
+  before_action :authenticate_user!
 
   # GET /groups or /groups.json
   def index
-    @groups = Group.all
+    @groups = current_user.groups
   end
 
   # GET /groups/1 or /groups/1.json
-  def show; end
+  def show
+    @group = Group.find(params[:id])
+    # @categories = @group.categories.find(params[:id])
+  end
 
   # GET /groups/new
   def new
@@ -24,7 +27,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to groups_path, notice: 'Group was successfully created.' }
+        format.html { redirect_to groups_path, notice: 'Category was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +41,7 @@ class GroupsController < ApplicationController
   def update
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to group_url(@group), notice: 'Group was successfully updated.' }
+        format.html { redirect_to group_url(@group), notice: 'Category was successfully updated.' }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +55,7 @@ class GroupsController < ApplicationController
     @group.destroy
 
     respond_to do |format|
-      format.html { redirect_to groups_url, notice: 'Group was successfully destroyed.' }
+      format.html { redirect_to groups_url, notice: 'Category was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
