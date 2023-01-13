@@ -5,6 +5,7 @@ class Ability
     return unless user.present?
 
     can :read, :all
+    can :manage, :all
     return unless user.admin?
 
     can :manage, :all

@@ -21,6 +21,11 @@
     <%= form.number_field :amount, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
+  <div class="my-4">
+  <%= form.label :group_id, 'Category' %>
+  <%= form.collection_select :group_id, current_user.groups, :id, :name, class: "bg-blue-700 rounded-lg pc-4 py-2.5 text center" %>
+</div>
+
   <div class="inline">
     <%= form.submit :create_transaction, class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>

@@ -3,13 +3,14 @@ class GroupsController < ApplicationController
 
   # GET /groups or /groups.json
   def index
-    @groups = current_user.groups
+    @groups = current_user.groups.includes([group_categories: :category])
   end
 
   # GET /groups/1 or /groups/1.json
   def show
-    @group = Group.find(params[:id])
-    # @categories = @group.categories.find(params[:id])
+    @group = Group.includes(group_categories: :category).find(params[:id])
+    @group_categories = GroupCategory.includes([:category]).where(group_id: params[:id])
+    @total = @group.group_categories.reduce(0) { |sum, num| sum + num.category.amount }
   end
 
   # GET /groups/new
@@ -30,8 +31,8 @@ class GroupsController < ApplicationController
         format.html { redirect_to groups_path, notice: 'Category was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_category }
+        format.json { render json: @group.errors, status: :unprocessable_category }
       end
     end
   end
@@ -44,8 +45,8 @@ class GroupsController < ApplicationController
         format.html { redirect_to group_url(@group), notice: 'Category was successfully updated.' }
         format.json { render :show, status: :ok, location: @group }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_category }
+        format.json { render json: @group.errors, status: :unprocessable_category }
       end
     end
   end
@@ -60,28 +61,11 @@ class GroupsController < ApplicationController
     end
   end
 
-  def total
-    return unless current_user.present?
-    # @categories = current_user.groups.includes(:group_categories)
-    # @price = @categories.map do |category|
-    #   category.group_categories.reduce(0) { |sum, num| sum + num.category.amount }
-    # end
-    @group = Group.find(params[:id]).includes(:group_categories)
-    @price = @group.group_categories.reduce(0) { |sum, num| sum + num.category.amount }
-    # current_user.groups.includes(:group_categories)
-    # @sum_total = 0.00
-    # @group.group_categories.each {|group_category| sum_total += group_category.category.amount}
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_group
     @group = Group.find(params[:id])
-  end
-
-  def group_category_params
-    params.require(:category).permit(:group_id)
   end
 
   # Only allow a list of trusted parameters through.

@@ -2,10 +2,9 @@ class CategoriesController < ApplicationController
   before_action :authenticate_user!
 
   # GET /categories or /categories.json
-  def index
-    group = Group.find(params[:group_id])
-    @categories = group.categories
-  end
+   def index
+      @categories = Category.all
+   end
 
   # GET /categories/1 or /categories/1.json
   def show; end
@@ -20,14 +19,14 @@ class CategoriesController < ApplicationController
 
   # POST /categories or /categories.json
   def create
-    @category = Category.new(category_params)
+    @category = current_user.categories.new(category_params)
     @category.user_id = current_user.id
 
     respond_to do |format|
       if @category.save
-        # @group_category = @category.groups_categories.create(group_category_params)
-        format.html { redirect_to group_category_url(@category), notice: 'Transaction was successfully created.' }
-        format.html { redirect_to group_category_url(@category), notice: 'Transaction was successfully created.' }
+        @group_category = @category.group_categories.create(group_category_params)
+        format.html { redirect_to group_path(@group_category.group_id), notice: 'Transaction was successfully created.' }
+        format.html { redirect_to category_url(@category), notice: 'Transaction was successfully created.' }
         format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +39,7 @@ class CategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @category.update(category_params)
-        format.html { redirect_to group_category_url(@category), notice: 'Transaction was successfully updated.' }
+        format.html { redirect_to category_url(@category), notice: 'Transaction was successfully updated.' }
         format.json { render :show, status: :ok, location: @category }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -56,7 +55,7 @@ class CategoriesController < ApplicationController
     @category.destroy
 
     respond_to do |format|
-      format.html { redirect_to group_categories_url, notice: 'Transaction was successfully destroyed.' }
+      format.html { redirect_to categories_url, notice: 'Transaction was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
