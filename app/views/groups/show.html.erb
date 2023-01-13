@@ -5,27 +5,27 @@
     <% end %>
 
     <%= render @group %>
+    <%= link_to 'Edit this category', edit_group_path(@group), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="inline-block ml-2">
+      <%= button_to 'Delete this category', group_path(@group), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    </div>
+    <%= link_to 'Back to categories', groups_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Add New Transaction', new_category_path(@group), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 
     <% if @group_categories.empty? %>
     <h2 class="font-bold">There are no transactions</h2>
   <% else %>
-    <ul class="items-center ml-3">
-      <% @group_categories.each do |group_category| %>
-        <li class="mt-3">
-          <div class="p-2">
+  <% @group_categories.each do |group_category| %>
+    <div class="border-gray-300 items-center rounded-lg ">
+          <div class="p-2 mt-3">
             <h2><%= group_category.category.name %></h2>
           </div>
-          <div class="p-2">
+          <div class="p-2 mt-3">
             <span>Amount: $<%= group_category.category.amount %></span>
           </div>
-        </li>
+            # <%= button_to 'Delete', group_category_path(@group @category), method: :delete, class: "btn rounded-lg py-3 px-5 bg-blue-600 block font-medium" %>
       <% end %>
-
-    <%= link_to 'Edit this group', edit_group_path(@group), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this group', group_path(@group), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <% end %>
     </div>
-    <%= link_to 'Back to groups', groups_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Add New Transaction', new_category_path(@group), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
   </div>
 </div>

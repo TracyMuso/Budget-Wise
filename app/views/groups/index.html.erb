@@ -18,17 +18,19 @@
       <p class="text-gray-500 my-2">You have no categories yet</p>
     <% else %>
       <p class="text-gray-500">You have <%= @groups.count %> categories</p>
-      <div class="bg-white border rounded-lg shadow-md hover: bg-gray-700">
+      <div class="bg-white mx-auto">
        <% @groups.each do |group| %>
+        <div class="bg-white border rounded-lg shadow-md my-4 mx-auto my-hover: bg-gray-700">
          <%= link_to group_path(group), class: 'no-underline' do %>
            <img src="<%= group.icon %>" alt="icon" class="w-4 h-4" />
             <h1 class="font-bold text-2xl"><%= group.name %></h1>
             <div>
             <div>
               <% total = 0.00 %>
-              <% group.group_categories.each {|group_categories| total += group_categories.categories.amount} %>
+              <% group.group_categories.each {|group_categories| total += group_categories.category.amount} %>
               <span class="amount">$<%= total %></span>
             </div>
+            <div class="bg-white border rounded-lg shadow-md my-4 mx-auto my-hover: bg-gray-700">
         <% end %>
       <% end %>
       </div>

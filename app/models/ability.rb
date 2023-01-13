@@ -4,11 +4,8 @@ class Ability
   def initialize(user)
     return unless user.present?
 
-    can :read, :all
-    can :manage, :all
-    return unless user.admin?
-
-    can :manage, :all
+    can :manage, Group, user: user
+    can :manage, Category, user: user
     #
     # The first argument to `can` is the action you are giving the user
     # permission to do.
