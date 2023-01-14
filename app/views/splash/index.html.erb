@@ -1,0 +1,7 @@
+<section class="w-screen m-0">
+  <% if user_signed_in? %>
+<%= render "shared/home" %>
+  <% else %>
+    <%= render "shared/splash" %>
+  <% end %>
+</section>
