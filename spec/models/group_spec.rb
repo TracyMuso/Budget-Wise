@@ -1,5 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Group, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'is not valid without a name' do
+    group = Group.new(name: nil)
+    expect(group).to_not be_valid
+  end
 end
