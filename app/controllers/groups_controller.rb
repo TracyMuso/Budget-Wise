@@ -37,7 +37,6 @@ class GroupsController < ApplicationController
     end
   end
 
-
   # PATCH/PUT /groups/1 or /groups/1.json
   def update
     respond_to do |format|
