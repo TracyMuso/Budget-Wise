@@ -5,11 +5,28 @@
     <% end %>
 
     <%= render @group %>
-
-    <%= link_to 'Edit this group', edit_group_path(@group), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this category', edit_group_path(@group), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <div class="inline-block ml-2">
-      <%= button_to 'Destroy this group', group_path(@group), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <%= button_to 'Delete this category', group_path(@group), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
     </div>
-    <%= link_to 'Back to groups', groups_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Back to categories', groups_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Add New Transaction', new_category_path(@group), class: "ml-2 mt-3 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+
+    <% if @group_categories.empty? %>
+    <h2 class="font-bold p-4 m-4">There are no transactions</h2>
+  <% else %>
+  <% @group_categories.each do |group_category| %>
+    <div class="items-center rounded-lg bg-white block my-4">
+          <div class="p-2 mt-3 inline-block">
+            <h2 class="p-2  mb-2 font-bold inline-block"><%= group_category.category.name %></h2>
+            <div class="p-2 inline-block w-10 h-10">
+            <%= image_tag "transaction-icon-16.jpg", class: "img w-10 h-10" %>
+            </div>
+          </div>
+          <span class="p-2 mt-3">Amount: $<%= group_category.category.amount %></span>
+          <span class="p-2 mt-3">Time: <%= group_category.created_at %></span>
+      <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

@@ -1,14 +1,47 @@
-<div class="w-full">
+<div class="w-full content-center">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
+  <header class="flex flex-row p-2 w-full items-center space-x-4">
+  <div class="mr-4 p-2 ml-4">
+    <%= link_to root_path, class: 'ml-4 p-2' do %>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"       stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+     </svg>
+     <% end %>
+     </div>
+     <div class="mr-4 p-2 ml-8">
+      <h1 class="font-bold p-2 ml-4">CATEGORIES</h1>
+    </div>
+    
+    <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn rounded-lg py-3 my-4 px-5 bg-blue-600 text-white font-medium mx-4" %>
+  </header>
+  <div class="d-flex justify-between w-3/5 mx-auto items-center">
+    <h1 class="font-bold text-4xl my-4">Categories</h1>
+    <div class="my-4 p-2 mx-auto w-1/2">
+      <%= link_to 'Add New Category', new_group_path, class: " btn rounded-lg py-3 my-4 px-5 bg-blue-600 text-white font-medium" %>
+    </div>
+    <% if @groups.empty? %>
+      <p class="text-white my-6 mx-auto">You have no categories yet</p>
+    <% else %>
+      <p class="text-gray-500">You have <%= @groups.count %> categories</p>
+      <div class="bg-white mx-auto my-4">
+       <% @groups.each do |group| %>
+         <%= link_to group_path(group), class: 'no-underline' do %>
+          <div class="flex bg-white border-gray-200 rounded-lg shadow-md p-4 my-4 mx-auto my-hover: bg-gray-700 items-center space-x-4">
+          <div class="w-6 h-6 mx-4">
+           <img src="<%= group.icon %>" alt="icon" class="img" />
+           </div>
+             <h1 class="font-bold text-2xl mx-4 p-2"><%= group.name %></h1>
+             <div class="p-2 mx-4 flex-end">
+               <% total = 0.00 %>
+               <% group.group_categories.each {|group_categories| total += group_categories.category.    amount} %>
+               <span class="amount p-2">$<%= total %></span>
+             </div>
+              </div>
+             <% end %>
+           <% end %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Groups</h1>
-    <%= link_to 'New group', new_group_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
-
-  <div id="groups" class="min-w-full">
-    <%= render @groups %>
+    <% end %>
   </div>
 </div>

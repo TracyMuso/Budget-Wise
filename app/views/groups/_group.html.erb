@@ -1,18 +1,13 @@
 <div id="<%= dom_id group %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= group.name %>
+  <div class="flex items-center justify-around bg-white border-gray-200 rounded-lg shadow-md p-4">
+  <div class="">
+    <img src="<%= group.icon %>" alt="icon" class="w-12 h-12 p-3" />
+    </div>
+    <p class="my-5">
+    <strong class="block font-medium mb-1 p-1"> <%= group.name %></strong>
   </p>
+  </div>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Icon:</strong>
-    <%= group.icon %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">User:</strong>
-    <%= group.user_id %>
-  </p>
 
   <% if action_name != "show" %>
     <%= link_to "Show this group", group, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>

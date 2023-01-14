@@ -54,7 +54,7 @@ class GroupCategoriesController < ApplicationController
     @group_category.destroy
 
     respond_to do |format|
-      format.html { redirect_to group_categories_url, notice: 'Group category was successfully destroyed.' }
+      format.html { redirect_to group_url, notice: 'Group category was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -68,6 +68,6 @@ class GroupCategoriesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def group_category_params
-    params.require(:group_category).permit(:group_id, :category_id)
+    params.fetch(:group_category, {})
   end
 end
