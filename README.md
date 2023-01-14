@@ -122,8 +122,8 @@ Install project dependecies with:
 
  ### Deployment <a name="deploy"></a>
 
- - [Live demo](https://budegt.onrender.com)
- - [Presentation video](https://www.loom.com/share/e39605e9ae5342e8ac64a5bdbd59fb10)
+ <!-- - [Live demo](https://budegt.onrender.com) -->
+ - [Presentation video](https://www.loom.com/share/d0c4697e9e1b409884b1985bad587bd4)
 
 ### Usage
 
