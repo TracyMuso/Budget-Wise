@@ -86,11 +86,6 @@ test:
 #
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
-#
 production:
   <<: *default
-  database: budget_wise_production
-  username: 'postgres'
-  password: 'psql888tm'
-  host: localhost
-  port: 5432
+  url: <%= ENV['DATABASE_URL'] %>
