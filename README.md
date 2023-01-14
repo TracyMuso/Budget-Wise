@@ -14,7 +14,7 @@
   - [Install](#install)
   - [Usage](#usage)
   - [Run tests](#run-tests)
-  - [Deployment](#triangular_flag_on_post-deployment)
+  - [Deployment](#deploy)
 - [👥 Authors](#authors)
 - [🔭 Future Features](#future-features)
 - [🤝 Contributing](#contributing)
@@ -27,6 +27,8 @@
 # 📖 Budget-Wise🍜<a name="about-project"></a>
 
 > The Budget-Wise app is a great application to plan your expenses. You can sign up and start generating your transactions and budgets
+
+![](splash.png)
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -113,7 +115,15 @@ Install project dependecies with:
   bundle install
 ```
 
--
+### Tests <a name="run-tests"></a>
+```
+   rspec
+```
+
+ ### Deployment <a name="deploy"></a>
+
+ - [Live demo](https://budegt.onrender.com)
+ - [Presentation video](https://www.loom.com/share/e39605e9ae5342e8ac64a5bdbd59fb10)
 
 ### Usage
 
