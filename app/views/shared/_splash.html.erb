@@ -1,15 +1,24 @@
-<div class="w-full mx-auto mt-16">
-        <h1 class="text-center my-4 p-2 font-bold  text-4xl">
-          Welcome to Budget-Wise!
-        </h1><br>
-        <div class="text-center mx-auto d-flex my-2">
-        <div class="mt-2 p-2">
-        <%= link_to 'Log in', new_user_session_path, class: "btn rounded-lg bg-blue-500 p-2 hover:bg-blue-700 text-white" %>
-        </div>
+<div class="block mx-auto mt-16 w-2/3 splash-cont p-4">
+  <div class="border-teal splash p-8 border-t-12 bg-white mt-6 rounded-lg shadow-lg">
+    <h1 class="text-center mt-6 p-2 font-bold text-4xl">
+      Welcome to Budget-Wise!
+    </h1>
+     <p class="text-center mt-2 p-1">
+        Making smarter financial decisions together
+        <i class="fa-regular fa-lightbulb"></i>
+     </p>
+    <div class="text-center mx-auto d-flex p-4">
+      <div class="mt-2 p-2">
         <br>
-        <small class="p-2 my-2">Dont have an account yet?</small><br>
-        <div class="my-4 p-2">
+        <small class="p-2 my-2">Already have an account? Log in</small><br>
+        <br>
+        <%= link_to 'Log in', new_user_session_path, class: "btn rounded-lg bg-blue-500 p-2 mt-4 hover:bg-blue-700 text-white" %>
+      </div>
+      <br>
+      <small class="p-2 my-2">Dont have an account yet?</small><br>
+      <div class="my-6 p-2">
         <%= link_to 'Sign up', new_user_registration_path, class: "btn my-4 rounded-lg p-2 bg-gray-500 mb-8 text-gray-200" %>
-        </div>
-        </div>
+      </div>
+    </div>
+  </div>
 </div>
