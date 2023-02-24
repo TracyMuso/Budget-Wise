@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   root 'splash#index'
   devise_for :users
+  resources :group_categories, only: [:destroy]
   resources :categories
   resources :groups do
     resources :categories, only: [:destroy]

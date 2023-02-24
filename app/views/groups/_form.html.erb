@@ -18,7 +18,16 @@
 
   <div class="my-5">
     <%= form.label :icon %>
-    <%= form.text_field :icon, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <p> Please select an icon for your category</p>
+    <div class="check-boxes">
+      <% Group::ICONS.each do |i| %>
+        <div>
+          <%= form.radio_button :icon, "#{i}.svg", id: i %>
+          <label for="<%=i%>" class="custom-radio">
+          <%=image_tag("#{i}.svg", alt:i, class: 'group_img')%>
+        </div>
+      <% end %>
+    </div>
   </div>
 
   <div class="inline">
