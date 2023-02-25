@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :set_group, only: %i[show edit update destroy]
 
   # GET /groups or /groups.json
   def index
@@ -10,6 +10,7 @@ class GroupsController < ApplicationController
   def show
     @group = Group.includes(group_categories: :category).find(params[:id])
     @group_categories = GroupCategory.includes([:category]).where(group_id: params[:id])
+    sum = 0.0
     @total = @group.group_categories.reduce(0) { |sum, num| sum + num.category.amount }
   end
 
@@ -23,7 +24,7 @@ class GroupsController < ApplicationController
 
   # POST /groups or /groups.json
   def create
-    @group = Group.new(group_params)
+    @group = current_user.groups.new(group_params)
     @group.user_id = current_user.id
 
     respond_to do |format|
@@ -60,7 +61,26 @@ class GroupsController < ApplicationController
     end
   end
 
+  def elim
+    group = current_user.groups
+    @transaction = group.group_categories.find(params[:id])
+    group.user_id = current_user.id
+    @transaction.destroy
+
+    respond_to do |format|
+      format.html { redirect_to group_url(@group), notice: 'Transaction was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
+
+  def sum_total
+    @groups.each do |i|
+      sum += i.group_categories.categories.sum(:amount)
+    end
+    sum
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_group

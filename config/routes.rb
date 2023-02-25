@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   devise_for :users
   resources :categories
   resources :groups do
-    resources :categories, only: [:destroy]
+    resources :categories, only: [:show, :destroy]
   end
 end

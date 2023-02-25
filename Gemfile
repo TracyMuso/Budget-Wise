@@ -14,6 +14,13 @@ gem 'rubocop', '>= 1.0', '< 2.0'
 # devise for authentication
 gem 'devise'
 
+# Process manager for applications with multiple components
+
+gem 'foreman', '~> 0.87.2'
+
+# pundit for authorization
+gem 'pundit', '~> 2.3'
+
 # CanCanCan for authorization
 gem 'cancancan', '~> 3.4'
 

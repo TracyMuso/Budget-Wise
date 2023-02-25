@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :set_category, only: %i[show edit update destroy]
 
   # GET /categories or /categories.json
   def index
@@ -12,6 +12,7 @@ class CategoriesController < ApplicationController
   # GET /categories/new
   def new
     @category = Category.new
+    @groups = current_user.groups
   end
 
   # GET /categories/1/edit
@@ -28,11 +29,8 @@ class CategoriesController < ApplicationController
         format.html do
           redirect_to group_path(@group_category.group_id), notice: 'Transaction was successfully created.'
         end
-        format.html { redirect_to category_url(@category), notice: 'Transaction was successfully created.' }
-        format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -52,12 +50,13 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1 or /categories/1.json
   def destroy
-    group = Group.find(params[:post_id])
+    group = Group.find(params[:group_id])
     @category = group.categories.find(params[:id])
+    # @gc = @category.group_categories.find(params[id])
     @category.destroy
 
     respond_to do |format|
-      format.html { redirect_to categories_url, notice: 'Transaction was successfully destroyed.' }
+      format.html { redirect_to group_path(group), notice: 'Transaction was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
