@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories or /categories.json
   def index
-    @categories = Category.all
+    @categories = current_user.categories.all
   end
 
   # GET /categories/1 or /categories/1.json
@@ -24,15 +24,10 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
-        @group_category = @category.group_categories.create(group_category_params)
-        format.html do
-          redirect_to group_path(@group_category.group_id), notice: 'Transaction was successfully created.'
-        end
-        format.html { redirect_to category_url(@category), notice: 'Transaction was successfully created.' }
-        format.json { render :show, status: :created, location: @category }
+        group = expense_params[:group_ids][1]
+        format.html { redirect_to group_path(group), notice: 'Transaction was successfully created.' }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -52,12 +47,11 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1 or /categories/1.json
   def destroy
-    group = Group.find(params[:post_id])
-    @category = group.categories.find(params[:id])
     @category.destroy
+    group = Group.find(params[:group_id])
 
     respond_to do |format|
-      format.html { redirect_to categories_url, notice: 'Transaction was successfully destroyed.' }
+      format.html { redirect_to group_path(group), notice: 'Transaction was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -76,6 +70,6 @@ class CategoriesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def category_params
-    params.require(:category).permit(:name, :amount)
+    params.require(:category).permit(:name, :amount, { group_ids: [] })
   end
 end

@@ -3,14 +3,14 @@ class GroupsController < ApplicationController
 
   # GET /groups or /groups.json
   def index
-    @groups = current_user.groups.includes([group_categories: :category])
+    @groups = current_user.groups.includes(:category)
+    @total = sum_total
   end
 
   # GET /groups/1 or /groups/1.json
   def show
-    @group = Group.includes(group_categories: :category).find(params[:id])
-    @group_categories = GroupCategory.includes([:category]).where(group_id: params[:id])
-    @total = @group.group_categories.reduce(0) { |sum, num| sum + num.category.amount }
+    @group_transactions = Group.includes(:category).find(params[:id])
+    # order(created_at: :desc)
   end
 
   # GET /groups/new
@@ -61,6 +61,15 @@ class GroupsController < ApplicationController
   end
 
   private
+
+  def sum_total
+    sum = 0
+
+    @groupss.each do |i|
+      sum += i.categories.sum(:amount)
+    end
+    sum
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_group

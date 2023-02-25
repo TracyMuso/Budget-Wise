@@ -17,6 +17,9 @@
   <% else %>
   <% @category.each do |category| %>
     <div class="my-4 trs mx-auto p-4">
+      <div>
+        <p>Sum total: $ <%= @group_transactions.sum(:amount)%></p>
+      <div>
       <div class="flex items-center rounded-lg bg-white my-2">
          <div class="p-2 mt-3 flex">
             <h2 class="p-2 mb-2 font-bold inline-block"><%= category.name %></h2>

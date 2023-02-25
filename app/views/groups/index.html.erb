@@ -35,14 +35,11 @@
            </div>
              <h1 class="font-bold text-2xl mx-4 p-2"><%= group.name %></h1>
              <div class="p-2 mx-4 flex-end">
-               <% total = 0.00 %>
-               <% group.group_categories.each {|group_categories| total += group_categories.category.amount} %>
-               <span class="amount p-2">$<%= total %></span>
+               <span class="amount p-2">$<%= group.categories.sum(:amount) %></span>
              </div>
               </div>
              <% end %>
            <% end %>
-
     <% end %>
   </div>
 </div>
