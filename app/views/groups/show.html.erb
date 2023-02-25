@@ -12,26 +12,26 @@
     <%= link_to 'Back to categories', groups_path, class: "btn text-white ml-2 rounded-lg py-3 px-5 bg-blue-600 inline-block font-medium" %>
     <%= link_to 'Add New Transaction', new_category_path(@group), class: " btn text-white ml-2 mt-3 rounded-lg py-3 px-5 bg-blue-600 inline-block font-medium" %>
 
-    <% if @category.empty? %>
+    <% if @group_categories.empty? %>
     <h2 class="font-bold p-4 m-4">There are no transactions</h2>
-  <% else %>
-  <% @category.each do |category| %>
-    <div class="my-4 trs mx-auto p-4">
-      <div>
-        <p>Sum total: $ <%= @group_transactions.sum(:amount)%></p>
-      <div>
-      <div class="flex items-center rounded-lg bg-white my-2">
-         <div class="p-2 mt-3 flex">
-            <h2 class="p-2 mb-2 font-bold inline-block"><%= category.name %></h2>
-            <div class="p-2 inline-block w-10 h-10">
-              <%= image_tag "transaction-icon-16.jpg", class: "img w-10 h-10" %>
-            </div>
-         </div>
-         <span class="p-2 mt-3">Amount: $<%= category.amount %></span>
-         <span class="p-2 mt-3">Time: <%= category.created_at %></span>
-         <p><%= button_to "Delete", item, method: :delete, class:"button-link del" %></p>
-      </div>
+    <% else %>
+      <h4 class="p-2">Sum Total: $<%= @total %></h4>
+      <div class="my-4 trs mx-auto p-4">
+        <% @group_categories.each do |group_category| %>
+          <div class="flex items-center rounded-lg bg-white my-2 p-2">
+             <div class="p-2 mt-3 flex items center">
+                <h2 class="p-2 mb-2 font-bold"><%= group_category.category.name %></h2>
+                <div class="p-2 w-10 h-10">
+                 <%= image_tag "transaction-icon-16.jpg", class: "img-t" %>
+                </div>
+             </div>
+            <span class="p-2 mt-3">Amount: $<%= group_category.category.amount %></span>
+            <span class="p-2 mt-3">Time: <%= group_category.category.created_at %></span>
+            <span class="p-2 mt-3"><%= button_to "Delete", method: :elim, class:" rounded-lg del" %></span>
+          </div>
+          <br>
       <% end %>
+        </div>
       <% end %>
     </div>
   </div>

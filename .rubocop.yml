@@ -51,7 +51,11 @@ Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 Lint/RaiseException:
   Enabled: false
+Lint/UselessAssignment:
+  Enabled: false
 Lint/StructNewOverride:
+  Enabled: false
+Lint/ShadowingOuterLocalVariable:
   Enabled: false
 Style/HashEachMethods:
   Enabled: false

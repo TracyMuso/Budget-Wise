@@ -1,9 +1,9 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i[show destroy]
+  before_action :set_category, only: %i[show edit update destroy]
 
   # GET /categories or /categories.json
   def index
-    @categories = current_user.categories.all
+    @categories = Category.all
   end
 
   # GET /categories/1 or /categories/1.json
@@ -12,6 +12,7 @@ class CategoriesController < ApplicationController
   # GET /categories/new
   def new
     @category = Category.new
+    @groups = current_user.groups
   end
 
   # GET /categories/1/edit
@@ -24,8 +25,10 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
-        group = expense_params[:group_ids][1]
-        format.html { redirect_to group_path(group), notice: 'Transaction was successfully created.' }
+        @group_category = @category.group_categories.create(group_category_params)
+        format.html do
+          redirect_to group_path(@group_category.group_id), notice: 'Transaction was successfully created.'
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -47,8 +50,10 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1 or /categories/1.json
   def destroy
-    @category.destroy
     group = Group.find(params[:group_id])
+    @category = group.categories.find(params[:id])
+    # @gc = @category.group_categories.find(params[id])
+    @category.destroy
 
     respond_to do |format|
       format.html { redirect_to group_path(group), notice: 'Transaction was successfully destroyed.' }
@@ -70,6 +75,6 @@ class CategoriesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def category_params
-    params.require(:category).permit(:name, :amount, { group_ids: [] })
+    params.require(:category).permit(:name, :amount)
   end
 end

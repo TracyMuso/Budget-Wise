@@ -51,6 +51,7 @@ class GroupCategoriesController < ApplicationController
 
   # DELETE /group_categories/1 or /group_categories/1.json
   def destroy
+    category = current_user.groups.categories
     @group_category.destroy
 
     respond_to do |format|

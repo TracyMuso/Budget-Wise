@@ -3,14 +3,15 @@ class GroupsController < ApplicationController
 
   # GET /groups or /groups.json
   def index
-    @groups = current_user.groups.includes(:category)
-    @total = sum_total
+    @groups = current_user.groups.includes([group_categories: :category])
   end
 
   # GET /groups/1 or /groups/1.json
   def show
-    @group_transactions = Group.includes(:category).find(params[:id])
-    # order(created_at: :desc)
+    @group = Group.includes(group_categories: :category).find(params[:id])
+    @group_categories = GroupCategory.includes([:category]).where(group_id: params[:id])
+    sum = 0.0
+    @total = @group.group_categories.reduce(0) { |sum, num| sum + num.category.amount }
   end
 
   # GET /groups/new
@@ -23,7 +24,7 @@ class GroupsController < ApplicationController
 
   # POST /groups or /groups.json
   def create
-    @group = Group.new(group_params)
+    @group = current_user.groups.new(group_params)
     @group.user_id = current_user.id
 
     respond_to do |format|
@@ -60,13 +61,23 @@ class GroupsController < ApplicationController
     end
   end
 
+  def elim
+    group = current_user.groups
+    @transaction = group.group_categories.find(params[:id])
+    group.user_id = current_user.id
+    @transaction.destroy
+
+    respond_to do |format|
+      format.html { redirect_to group_url(@group), notice: 'Transaction was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
 
   def sum_total
-    sum = 0
-
-    @groupss.each do |i|
-      sum += i.categories.sum(:amount)
+    @groups.each do |i|
+      sum += i.group_categories.categories.sum(:amount)
     end
     sum
   end
